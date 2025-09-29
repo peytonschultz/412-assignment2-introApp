@@ -27,7 +27,6 @@ public class SecondaryActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_secondary);
 
-
         LinearLayout challengesView = findViewById(R.id.ll_challenges);
 
         MobileChallenge challenge1 = new MobileChallenge("Device Fragmentation","There are a large varieties of different device configurations. (Screen size, refresh rates, etc.)");

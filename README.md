@@ -1,4 +1,4 @@
-#Introductory Application
+# Introductory Application
 This repository is for a course I am taking at North Dakota State University. The goal is to create an app that utilizes two activities and both implicit and explicit intents to traverse them. 
 
 ## How to get this running?
@@ -17,12 +17,12 @@ There is a list of challenges related to mobile software engineering listed here
 The onther item on screen is a button that should take you back to the main activity (Explicitly).
 
 ## Approach to Project
-I tried following the guide here to get a starting point, and I was able to do a lot, however I couldn't figure out how to insert buttons on the page. 
+I tried following the guide here to get a starting point, and I was able to do a lot, however I couldn't figure out how to insert buttons on the page.  (there was no layoutfile created for the Component)
 
-I pivoted towards making a new project from the empty views activity template. This allowed me to place buttons in the xml layout file for these activities. I also think they are more customizable and easier to format nicely compared to the ComponentActivites found in the tutorial.
+I pivoted towards making a new project from the empty views activity template. This allowed me to place buttons in the xml layout file for these activities. I also think they are more customizable and easier to format nicely compared to the ComponentActivites found in the tutorial. (My project uses AppCompatActivities)
 The main activity had requirements spelled out for me, so I just added the text and the 2 buttons. It was weird to set up the implicit calls, android studio's Lint is highlighting that line as an error despite the project working with the implicit intent instantiated here.
 The second activity was where I had some fun! All that was spelled out was that I had to display multiple challenges of mobile software development. I took this as a challenge learn something new. I did not want to hard code all of these values in the layout files, so I decided that I would use an Object-Oriented Approach.
-The code is below, but I wanted to try to make these challenges more programatically. This was a huge help as changing the layout/organization/style of these challenges was much easier here than in other approaches. The toLinearLayout() method was how this was achieved.
+The code is below, but I wanted to try to make these challenges more programmatically. This was a huge help as changing the layout/organization/style of these challenges was much easier here than in other approaches. The toLinearLayout() method was how this was achieved.
 
     //Trying to do something new, rather than just make static content on the second activity
     private class MobileChallenge{
@@ -69,3 +69,14 @@ The code is below, but I wanted to try to make these challenges more programatic
 
     }
 
+## What I learned 
+ - implicit vs explicit intents {MainActivity.java -> 26:38}
+ - A reminder on Android Studio
+ - How to write a README {this}
+ - Activities, Views, and Layouts 
+ - Creating App Components programmatically {SecondaryActivity.java -> 32:54 & 74:116}
+
+## Technologies Used
+Languages: Java, XML(?)
+Software: Android Studio, GitHub
+Technical: App Development, OOP
