@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">412-assignment2-intro-app</string>
+    <string name="challenge_title">Challenges in Mobile Software Engineering (scroll!)</string>
+    <string name="back_to_main">Main Activity</string>
+    <string name="start_activity_implicitly">Start Activity Implicitly!</string>
+    <string name="start_activity_explicitly">Start Activity Explicitly!</string>
+    <string name="my_name">Peyton L Schultz</string>
+    <string name="my_id_number">1393218</string>
+
+</resources>
