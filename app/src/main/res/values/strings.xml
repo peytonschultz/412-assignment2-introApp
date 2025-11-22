@@ -7,4 +7,10 @@
     <string name="my_name">Peyton L Schultz</string>
     <string name="my_id_number">1393218</string>
 
+    <string name="reset">Reset Image</string>
+    <string name="capture">Capture Image</string>
+    <string name="change">Change Image</string>
+    <string name="_return">Go Back</string>
+
+
 </resources>

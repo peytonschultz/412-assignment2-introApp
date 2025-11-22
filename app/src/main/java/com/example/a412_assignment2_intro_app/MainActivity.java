@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button button_implicit = findViewById(R.id.btn_implicit);
         Button button_explicit = findViewById(R.id.btn_explicit);
+        Button button_image = findViewById(R.id.btn_img_activity);
 
         button_explicit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -32,8 +33,15 @@ public class MainActivity extends AppCompatActivity {
 
         button_implicit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent implicitIntent = new Intent("com.example.app.ACTIVATE_SECONDARY_ACTIVITY");
+                Intent implicitIntent = new Intent("com.example.app.ACTIVATE_SECONDARY_ACTIVITY").setClassName(/* TODO: provide the application ID. For example: */ getPackageName(), "com.example.a412_assignment2_intro_app.SecondaryActivity");
                 startActivity(implicitIntent);
+            }
+        });
+
+        button_image.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent explicitIntent = new Intent(MainActivity.this, ImageActivity.class);
+                startActivity(explicitIntent);
             }
         });
 
