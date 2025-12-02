@@ -1,6 +1,8 @@
 package com.example.a412_assignment2_intro_app;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,6 +27,19 @@ public class MainActivity extends AppCompatActivity {
         Button button_implicit = findViewById(R.id.btn_implicit);
         Button button_explicit = findViewById(R.id.btn_explicit);
         Button button_image = findViewById(R.id.btn_img_activity);
+        String[] neccessaryPermissions = new String[]{"com.example.a412_assignment2_intro_app.MSE412"};
+
+        if (ContextCompat.checkSelfPermission(
+                this, "com.example.a412_assignment2_intro_app.MSE412")
+                !=
+                PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(
+                    this,
+                    neccessaryPermissions,
+                    100
+            );
+        }
 
         button_explicit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
