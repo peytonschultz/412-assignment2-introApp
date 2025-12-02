@@ -40,6 +40,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.4.0-alpha05")
     implementation("com.github.bumptech.glide:glide:4.16.0");
 }
