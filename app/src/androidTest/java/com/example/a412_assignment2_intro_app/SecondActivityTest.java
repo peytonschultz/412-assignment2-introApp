@@ -20,13 +20,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.junit.Assert.*;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.util.Log;
+import android.widget.Toast;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.By;
@@ -38,6 +44,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
 
 /**
  * Basic sample for unbundled UiAutomator.
@@ -67,40 +75,53 @@ public class SecondActivityTest {
         // Start from the home screen
         mDevice.pressHome();
 
-        // Wait for launcher
-        final String launcherPackage = getLauncherPackageName();
-        assertThat(launcherPackage, notNullValue());
-        mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT);
+        //swipe upwards to view drawer
+        mDevice.swipe(500, 1500, 500, 200, 10);
 
-        // Launch the blueprint app
-        Context context = getApplicationContext();
-        final Intent intent = context.getPackageManager()
-                .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);    // Clear out any previous instances
-        context.startActivity(intent);
+        //waits for app to be installed
+        mDevice.wait(Until.hasObject(By.pkg(mDevice.getLauncherPackageName()).depth(0)), 5000);
 
-        // Wait for the app to appear
-        mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)), LAUNCH_TIMEOUT);
+        String appName = "412-assignment2-intro-app";
+
+        // Launch app from the home screen
+        UiObject2 appIcon = mDevice.wait(Until.findObject(By.text(appName)), 5000);
+
+        // Click the icon
+        appIcon.click();
+
+        //wait for app to appear
+        mDevice.wait(Until.hasObject(By.pkg("com.example.a412-assignment2-intro-app").depth(0)), 5000);
     }
 
     @Test
-    public void testChangeText_sameActivity() {
+    public void test_secondActivityActivation() {
+
+        //clicks the button in the app
+        mDevice.findObject(By.text("Start Activity Explicitly!")).click();
+
+        //waits until the linear layour containing the challenges have loaded
+        mDevice.wait(Until.hasObject(By.res("com.example.412-assignment2-intro-app:id/ll_challenges")), 5000);
+
+        UiObject2 nameObj = mDevice.findObject(By.textContains("Device Fragmentation"));
+
+        UiObject2 parent = nameObj.getParent(); //gets parent element (linear layout)
+        List<UiObject2> children = parent.getChildren();
+        UiObject2 descObj = null;
+        //assigns the description (TextView) to descObj
+        for (UiObject2 child : children) {
+            if (!child.equals(nameObj) && child.getClassName().equals("android.widget.TextView")) {
+                descObj = child;
+                break;
+            }
+        }
+
+        //asserts that descObj is not null, Device Fragmentation is the only text in nameObj, and that the correct description exists for this mobile software challenge
+        assertNotNull(descObj);
+        assertEquals("Device Fragmentation", nameObj.getText());
+        assertEquals(
+                "There are a large varieties of different device configurations. (Screen size, refresh rates, etc.)",
+                descObj.getText());
 
     }
 
-    /**
-     * Uses package manager to find the package name of the device launcher. Usually this package
-     * is "com.android.launcher" but can be different at times. This is a generic solution which
-     * works on all platforms.`
-     */
-    private String getLauncherPackageName() {
-        // Create launcher Intent
-        final Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-
-        // Use PackageManager to get the launcher package name
-        PackageManager pm = getApplicationContext().getPackageManager();
-        ResolveInfo resolveInfo = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return resolveInfo.activityInfo.packageName;
-    }
 }
